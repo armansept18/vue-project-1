@@ -1,0 +1,18 @@
+#app {
+  font-family: "Montserrat", sans-serif;
+}
+
+.router-link-exact-active {
+  font-weight: bolder;
+}
+
+.btn-success {
+  background-color: #ef2204;
+  border-color: #e61c08;
+}
+.btn-success:hover,
+.btn-success:active,
+.btn-success:focus {
+  background-color: #d91705;
+  border-color: #ac1306;
+}
