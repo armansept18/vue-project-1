@@ -16,3 +16,19 @@
   background-color: #d91705;
   border-color: #ac1306;
 }
+
+.card-product {
+  border-radius: 15px;
+  max-width: 200px;
+  width: 100vw;
+  max-height: 300px;
+  height: 100vh;
+}
+.product-image {
+  height: 140px;
+  object-fit: cover;
+}
+
+.card-img-top {
+  border-radius: 15px 15px 0 0;
+}
