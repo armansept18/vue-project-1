@@ -28,7 +28,45 @@
   height: 140px;
   object-fit: cover;
 }
-
 .card-img-top {
   border-radius: 15px 15px 0 0;
+}
+.breadcrumb {
+  background-color: transparent;
+  padding: 0;
+}
+.img-fluid {
+  border-radius: 15px;
+}
+
+@media screen and (max-width: 992px) {
+  .product-image {
+    height: 100px;
+  }
+  .card-product {
+    max-height: 260px;
+  }
+  .card-body > h6 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    max-width: 180px;
+    width: 100vw;
+  }
+}
+@media screen and (max-width: 375px) {
+  .card {
+    max-width: 160px;
+    width: 100vw;
+  }
+  .card-body > h6 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 11px;
+  }
 }

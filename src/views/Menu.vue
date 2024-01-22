@@ -29,7 +29,7 @@
 
       <div class="row mb-4">
         <div
-          class="col-md-3 mt-4 d-flex justify-content-center align-items-center"
+          class="col-6 col-sm-4 col-md-3 mt-4 d-flex justify-content-center align-items-center"
           v-for="product in products"
           :key="product.id"
         >

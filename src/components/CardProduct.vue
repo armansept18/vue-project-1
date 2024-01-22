@@ -10,8 +10,10 @@
       <h6 style="text-align: right">
         Rp {{ product.harga.toLocaleString("id-ID") }}
       </h6>
-      <a href="#" class="btn btn-danger mt-4"
-        ><i class="bi bi-cart3"></i> Order</a
+      <router-link
+        :to="'/menu-details/' + product.id"
+        class="btn btn-danger mt-4"
+        ><i class="bi bi-cart3"></i> Order</router-link
       >
     </div>
   </div>
