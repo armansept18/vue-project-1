@@ -100,5 +100,26 @@
     }
   ],
   "carts": [],
-  "orders": []
+  "orders": [
+    {
+      "id": "566e",
+      "name": "Test",
+      "tableNum": "1",
+      "carts": [
+        {
+          "id": "ee40",
+          "qty": 1,
+          "notes": "",
+          "products": {
+            "id": "1",
+            "kode": "K-01",
+            "name": "Sate Ayam",
+            "harga": 16000,
+            "is_ready": true,
+            "gambar": "sate-ayam.jpg"
+          }
+        }
+      ]
+    }
+  ]
 }

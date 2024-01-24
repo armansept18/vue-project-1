@@ -97,6 +97,33 @@
           </div>
         </div>
       </div>
+
+      <!-- Form Checkout -->
+      <div class="row justify-content-end">
+        <div class="col-md-4">
+          <form class="mt-4" @submit.prevent>
+            <div class="form-group">
+              <label for="name">Nama :</label>
+              <input type="text" class="form-control" v-model="messages.name" />
+            </div>
+            <div class="form-group">
+              <label for="tableNum">Nomor Meja :</label>
+              <input
+                type="text"
+                class="form-control"
+                v-model="messages.tableNum"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-danger mt-4 float-end"
+              @click="checkout"
+            >
+              <i class="bi bi-wallet2"></i> Checkout
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -114,6 +141,7 @@ export default {
   data() {
     return {
       carts: [],
+      messages: {},
     };
   },
   methods: {
@@ -143,6 +171,55 @@ export default {
         .catch((err) => {
           console.error("Delete cart error :", err.message);
         });
+    },
+    checkout() {
+      if (
+        this.messages.name &&
+        this.messages.tableNum &&
+        this.carts.length !== 0
+      ) {
+        this.messages.carts = this.carts;
+        axios
+          .post("http://localhost:2000/orders", this.messages)
+          .then(() => {
+            this.carts.map(async function (item) {
+              try {
+                return await axios.delete(
+                  "http://localhost:2000/carts/" + item.id
+                );
+              } catch (err) {
+                console.log("Error deleting :", err.message);
+              }
+            });
+
+            this.$router.push({ path: "/checkout" });
+            this.$toast.success("Checkout!", {
+              position: "top",
+              type: "success",
+              duration: 3000,
+              dismissible: true,
+            });
+          })
+          .catch((err) => {
+            console.error("Error Checkout: ", err.message);
+          });
+      } else {
+        if (this.carts.length === 0) {
+          this.$toast.error("Your cart empty!", {
+            position: "top",
+            type: "error",
+            duration: 2000,
+            dismissible: true,
+          });
+        } else {
+          this.$toast.error("Please fill the name and table", {
+            position: "top",
+            type: "error",
+            duration: 2000,
+            dismissible: true,
+          });
+        }
+      }
     },
   },
   mounted() {
