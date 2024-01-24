@@ -46,19 +46,25 @@
           <hr />
           <h4>
             Harga :
-            <strong>Rp {{ product.harga }}</strong>
+            <strong
+              >Rp {{ Number(product.harga).toLocaleString("id-ID") }}</strong
+            >
           </h4>
-          <form action="" class="mt-4">
+          <form class="mt-4" @submit.prevent>
             <div class="form-group">
               <label for="qty">Jumlah Pesanan</label>
-              <input type="number" class="form-control" />
+              <input type="number" class="form-control" v-model="carts.qty" />
             </div>
             <div class="form-group">
-              <label for="keterangan">Keterangan</label>
-              <textarea class="form-control" placeholder="Keterangan" />
+              <label for="notes">Keterangan</label>
+              <textarea
+                class="form-control"
+                placeholder="Keterangan"
+                v-model="carts.notes"
+              />
             </div>
-            <button type="submit" class="btn btn-danger mt-4">
-              <i class="bi bi-cart3"></i> Order
+            <button type="submit" class="btn btn-danger mt-4" @click="cart">
+              <i class="bi bi-cart3"></i> Add to cart
             </button>
           </form>
         </div>
@@ -79,11 +85,48 @@ export default {
   data() {
     return {
       product: {},
+      carts: {
+        qty: 1,
+        notes: "",
+      },
     };
   },
   methods: {
     setProduct(data) {
       this.product = data;
+    },
+    cart() {
+      if (this.carts.qty < 1) {
+        this.$toast.error("Please set correct quantity", {
+          type: "error",
+          timeout: 3000,
+          position: "top",
+          dismissible: true,
+        });
+        return;
+      } else {
+        this.carts.products = this.product;
+        axios
+          .post("http://localhost:2000/carts", this.carts)
+          .then(() => {
+            console.log(
+              "Order Successful!",
+              `Your order for ${this.product.name} has been placed.
+            Your cart :`,
+              this.carts.products
+            );
+            this.$router.push({ path: "/carts" });
+            this.$toast.success("Success add to cart", {
+              type: "success",
+              position: "top",
+              duration: 3000,
+              dismissible: true,
+            });
+          })
+          .catch((err) => {
+            console.error(`Error Order Products! ${err}`);
+          });
+      }
     },
   },
   mounted() {
@@ -93,7 +136,9 @@ export default {
         console.log("Response Route Params :", res.data);
         this.setProduct(res.data);
       })
-      .catch((err) => console.error("Request Params :", err.message));
+      .catch((err) => {
+        console.error("Request Params :", err.message);
+      });
   },
 };
 </script>

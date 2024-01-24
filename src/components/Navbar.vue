@@ -24,10 +24,12 @@
         </ul>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link class="nav-link" to="/cart"
+            <router-link class="nav-link" to="/carts"
               >Keranjang
               <i class="bi bi-cart3"></i>
-              <span class="badge text-bg-success ms-2">0</span>
+              <span class="badge text-bg-success ms-2">{{
+                updateCarts ? updateCarts.length : qty.length
+              }}</span>
             </router-link>
           </li>
         </ul>
@@ -37,9 +39,30 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Navbar",
+  data() {
+    return {
+      qty: [],
+    };
+  },
+  props: ["updateCarts"],
+  methods: {
+    setQty(data) {
+      this.qty = data;
+    },
+  },
+  mounted() {
+    axios
+      .get("http://localhost:2000/carts")
+      .then((res) => {
+        this.setQty(res.data);
+      })
+      .catch((err) => console.error("Error on carts :", err.message));
+  },
 };
 </script>
 
