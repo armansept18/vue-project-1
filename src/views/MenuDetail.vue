@@ -107,7 +107,10 @@ export default {
       } else {
         this.carts.products = this.product;
         axios
-          .post("http://localhost:2000/carts", this.carts)
+          .post(
+            "https://my-json-server.typicode.com/armansept18/mock-terserah/carts",
+            this.carts
+          )
           .then(() => {
             console.log(
               "Order Successful!",
@@ -131,7 +134,10 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:2000/products/" + this.$route.params.id)
+      .get(
+        "https://my-json-server.typicode.com/armansept18/mock-terserah/products/" +
+          this.$route.params.id
+      )
       .then((res) => {
         console.log("Response Route Params :", res.data);
         this.setProduct(res.data);

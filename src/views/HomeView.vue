@@ -53,7 +53,9 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:2000/best-products")
+      .get(
+        "https://my-json-server.typicode.com/armansept18/mock-terserah/best-products"
+      )
       .then((response) => {
         console.log("Fetch data :", response.data);
         this.setProduct(response.data);

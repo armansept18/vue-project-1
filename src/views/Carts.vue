@@ -150,7 +150,10 @@ export default {
     },
     deleteItem(id) {
       axios
-        .delete("http://localhost:2000/carts/" + id)
+        .delete(
+          "https://my-json-server.typicode.com/armansept18/mock-terserah/carts/" +
+            id
+        )
         .then(() => {
           this.$toast.success("Berhasil hapus item", {
             position: "top",
@@ -159,7 +162,9 @@ export default {
             dismissible: true,
           });
           axios
-            .get("http://localhost:2000/carts")
+            .get(
+              "https://my-json-server.typicode.com/armansept18/mock-terserah/carts"
+            )
             .then((res) => {
               console.log("Response Carts :", res.data);
               this.setCarts(res.data);
@@ -180,12 +185,16 @@ export default {
       ) {
         this.messages.carts = this.carts;
         axios
-          .post("http://localhost:2000/orders", this.messages)
+          .post(
+            "https://my-json-server.typicode.com/armansept18/mock-terserah/orders",
+            this.messages
+          )
           .then(() => {
             this.carts.map(async function (item) {
               try {
                 return await axios.delete(
-                  "http://localhost:2000/carts/" + item.id
+                  "https://my-json-server.typicode.com/armansept18/mock-terserah/carts/" +
+                    item.id
                 );
               } catch (err) {
                 console.log("Error deleting :", err.message);
@@ -224,7 +233,9 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:2000/carts")
+      .get(
+        "https://my-json-server.typicode.com/armansept18/mock-terserah/carts"
+      )
       .then((res) => {
         console.log("Response Carts :", res.data);
         this.setCarts(res.data);

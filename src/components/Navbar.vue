@@ -57,7 +57,9 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:2000/carts")
+      .get(
+        "https://my-json-server.typicode.com/armansept18/mock-terserah/carts"
+      )
       .then((res) => {
         this.setQty(res.data);
       })

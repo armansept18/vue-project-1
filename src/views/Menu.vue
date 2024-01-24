@@ -65,7 +65,9 @@ export default {
     },
     async fetchData() {
       try {
-        const response = await axios.get("http://localhost:2000/products");
+        const response = await axios.get(
+          "https://my-json-server.typicode.com/armansept18/mock-terserah/products"
+        );
         return response.data;
       } catch (error) {
         console.error("Error fetching data:", error.message);
